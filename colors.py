@@ -49,8 +49,9 @@ COLORS = dict(
 	white   = '\033[37m',
 )
 
-def _wrap_color(c):
+def _wrap_color(code):
 	def inner(text, format=''):
+		c = code
 		if format == 'bold':
 			c = "1;%s" % c
 		elif format == 'underline':
@@ -63,7 +64,7 @@ def _wrap_color(c):
 			return "\033[%sm%s\033[0m" % (c, text) 
 		else:
 			return text
-	inner.__doc__ = 'Colors text with code %s and given format' % (c)
+	inner.__doc__ = 'Colors text with code %s and given format' % (code)
 	return inner
 
 black   = _wrap_color('30')

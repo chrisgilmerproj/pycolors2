@@ -1,3 +1,5 @@
-colors.py
+LICENSE.txt
+MANIFEST.in
 README.rst
+colors.py
 setup.py

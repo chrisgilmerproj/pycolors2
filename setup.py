@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
 	name = 'pycolors2',
 	py_modules = ['colors',],
-	version = 'v0.0.2',
+	version = 'v0.0.1',
 	author = 'RED Interactive Agency',
 	author_email = 'geeks@ff0000.com',
 
