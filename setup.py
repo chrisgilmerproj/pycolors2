@@ -3,12 +3,11 @@ from distutils.core import setup
 setup(
 	name = 'pycolors2',
 	py_modules = ['colors',],
-	version = 'v0.0.1',
+	version = 'v0.0.2',
 	author = 'RED Interactive Agency',
 	author_email = 'geeks@ff0000.com',
 
 	url = 'http://www.github.com/ff0000/colors/',
-	download_url = 'http://www.github.com/ff0000/colors/',
 	
 	license = 'MIT license',
 	description = """ Tool to color code python output """,
