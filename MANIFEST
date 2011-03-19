@@ -1,5 +1,5 @@
 LICENSE.txt
 MANIFEST.in
-README.rst
+README.markdown
 colors.py
 setup.py

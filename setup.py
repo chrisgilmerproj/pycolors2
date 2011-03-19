@@ -12,7 +12,7 @@ setup(
 	license = 'MIT license',
 	description = """ Tool to color code python output """,
 
-	long_description = open('README.rst').read(),
+	long_description = open('README.markdown').read(),
 	requires = [],
 
 	classifiers = (
