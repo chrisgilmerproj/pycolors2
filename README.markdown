@@ -46,3 +46,4 @@ You can enable or disable the colors in your program at any time:
     enable_colors()
     print(red('This will be red text now that colors are enabled'))
 
+Note that this will not work with the dictionary method, only with the actual color methods.
