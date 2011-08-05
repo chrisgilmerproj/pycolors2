@@ -3,11 +3,11 @@ from distutils.core import setup
 setup(
 	name = 'pycolors2',
 	py_modules = ['colors',],
-	version = '0.0.1',
-	author = 'RED Interactive Agency',
-	author_email = 'geeks@ff0000.com',
+	version = '0.0.2',
+	author = 'Chris Gilmer',
+	author_email = 'chris.gilmer@gmail.com',
 
-	url = 'http://www.github.com/ff0000/colors/',
+	url = 'http://github.com/chrisgilmerproj/pycolors2',
 	
 	license = 'MIT license',
 	description = """ Tool to color code python output """,

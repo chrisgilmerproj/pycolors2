@@ -5,7 +5,7 @@ text output in colors.  This tool was originally forked from the
 Fabric fabric.colors library and upgraded with utilities from the
 original pycolors tool in pypi.
 
-Maintainer: Chris Gilmer at FF0000
+Maintainer: Chris Gilmer
 
 ## Methods
 
