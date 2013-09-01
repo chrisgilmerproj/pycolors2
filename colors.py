@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 import os
 import subprocess
@@ -47,45 +47,45 @@ class Colors(object):
         """ Method to disable colors """
         os.environ[self.PYCOLORS2_DISABLE_COLORS] = '1'
 
-    def _wrap_color(self, code):
-        def inner(text, format=None):
-            c = code
-            if format == 'bold':
-                c = "1;%s" % c
-            elif format == 'underline':
-                c = "4;%s" % c
-            elif format == 'background':
-                c = "%s" % str(int(c)+10)
-            else:
-                c = "0;%s" % c
-            if self.PYCOLORS2_HAS_COLORS in os.environ and \
-               self.PYCOLORS2_DISABLE_COLORS not in os.environ:
-                return "\033[%sm%s\033[0m" % (c, text)
-            else:
-                return text
-        inner.__doc__ = 'Colors text with code %s and given format' % (code)
-        return inner
+    def _wrap_color(self, code, text, format=None):
+        """ Colors text with code and given format """
+        if int(code) not in range(30, 38):
+            raise Exception('Color code must be 30 - 37')
+
+        if format == 'bold':
+            code = "1;{}".format(code)
+        elif format == 'underline':
+            code = "4;{}".format(code)
+        elif format == 'background':
+            code = str(int(code) + 10)
+        else:
+            code = "0;{}".format(code)
+        if self.PYCOLORS2_HAS_COLORS in os.environ and \
+           self.PYCOLORS2_DISABLE_COLORS not in os.environ:
+            return "\033[{0}m{1}\033[0m".format(code, text)
+        else:
+            return text
 
     def black(self, text, format=None):
-        return self._wrap_color('30')(text, format=format)
+        return self._wrap_color('30', text, format=format)
 
     def red(self, text, format=None):
-        return self._wrap_color('31')(text, format=format)
+        return self._wrap_color('31', text, format=format)
 
     def green(self, text, format=None):
-        return self._wrap_color('32')(text, format=format)
+        return self._wrap_color('32', text, format=format)
 
     def yellow(self, text, format=None):
-        return self._wrap_color('33')(text, format=format)
+        return self._wrap_color('33', text, format=format)
 
     def blue(self, text, format=None):
-        return self._wrap_color('34')(text, format=format)
+        return self._wrap_color('34', text, format=format)
 
     def magenta(self, text, format=None):
-        return self._wrap_color('35')(text, format=format)
+        return self._wrap_color('35', text, format=format)
 
     def cyan(self, text, format=None):
-        return self._wrap_color('36')(text, format=format)
+        return self._wrap_color('36', text, format=format)
 
     def white(self, text, format=None):
-        return self._wrap_color('37')(text, format=format)
+        return self._wrap_color('37', text, format=format)

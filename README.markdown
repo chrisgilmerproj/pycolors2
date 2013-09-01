@@ -11,13 +11,13 @@ Maintainer: Chris Gilmer
 
 ## Methods
 
-Using the methods is easy.  To make red text::
+Using the methods is easy.  To make red text:
     
     import colors
     c = colors.Colors()
     print(c.red('This will be red text'))
 
-To mix text simply::
+To mix text simply:
 
     import colors
     c = colors.Colors()
@@ -25,7 +25,7 @@ To mix text simply::
 
 ## Dictionary
 
-Similarly the dictionary can be used::
+Similarly the dictionary can be used:
 
     import colors
     c = colors.Colors()
