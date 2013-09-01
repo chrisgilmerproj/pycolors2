@@ -13,39 +13,40 @@ Maintainer: Chris Gilmer
 
 Using the methods is easy.  To make red text::
     
-    from colors import *
-    print(red('This will be red text'))
+    import colors
+    print(colors.red('This will be red text'))
 
 To mix text simply::
 
-    from colors import *
-    print(red('This will be red text') + green('and this will be green text.'))
+    import colors
+    print(colors.red('This will be red text') + colors.green('and this will be green text.'))
 
 ## Dictionary
 
 Similarly the dictionary can be used::
 
-    from colors import *
-    print('%(red)sThis will be red text %(green)sand this will be green text.%(normal)s' % COLORS)
+    import colors
+    print('{red}This will be red text {green}and this will be green text.{normal}'.format(**colors.COLORS))
 
 ## Formatting
 
 There are also several formats you can use when printing your code:
 
-    from colors import *
-    print(red('This will be BOLD red text', format='bold'))
-    print(red('This will be UNDERLINE red text', format='underline'))
-    print(red('This will be BACKGROUND red text', format='background'))
+    import colors
+    print(colors.red('This will be BOLD red text', format='bold'))
+    print(colors.red('This will be UNDERLINE red text', format='underline'))
+    print(colors.red('This will be BACKGROUND red text', format='background'))
 
 ## Environment
 
 You can enable or disable the colors in your program at any time:
 
-    from colors import *
-    print(red('This will be red text'))
-    disable_colors()
-    print(red('This will not be red text because colors are disabled'))
-    enable_colors()
-    print(red('This will be red text now that colors are enabled'))
+    import colors
+    print(colors.red('This will be red text'))
+    colors.disable_colors()
+    print(colors.red('This will not be red text because colors are disabled'))
+    colors.enable_colors()
+    print(colors.red('This will be red text now that colors are enabled'))
 
-Note that this will not work with the dictionary method, only with the actual color methods.
+Note that this will not work with the dictionary method, only with the actual
+color methods.
