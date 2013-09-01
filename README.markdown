@@ -7,6 +7,8 @@ original pycolors tool in pypi.
 
 Maintainer: Chris Gilmer
 
+[![Build Status](https://travis-ci.org/chrisgilmerproj/pycolors2.png)](https://travis-ci.org/chrisgilmerproj/pycolors2)
+
 ## Methods
 
 Using the methods is easy.  To make red text::
