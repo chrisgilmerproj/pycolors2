@@ -3,9 +3,11 @@ from distutils.core import setup
 setup(
 	name = 'pycolors2',
 	py_modules = ['colors',],
-	version = '0.0.2',
+	version = '0.0.3',
 	author = 'Chris Gilmer',
 	author_email = 'chris.gilmer@gmail.com',
+	maintainer = 'Chris Gilmer',
+	maintainer_email = 'chris.gilmer@gmail.com',
 
 	url = 'http://github.com/chrisgilmerproj/pycolors2',
 	
