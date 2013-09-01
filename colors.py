@@ -53,13 +53,13 @@ class Colors(object):
             raise Exception('Color code must be 30 - 37')
 
         if format == 'bold':
-            code = "1;{}".format(code)
+            code = "1;{0}".format(code)
         elif format == 'underline':
-            code = "4;{}".format(code)
+            code = "4;{0}".format(code)
         elif format == 'background':
             code = str(int(code) + 10)
         else:
-            code = "0;{}".format(code)
+            code = "0;{0}".format(code)
         if self.PYCOLORS2_HAS_COLORS in os.environ and \
            self.PYCOLORS2_DISABLE_COLORS not in os.environ:
             return "\033[{0}m{1}\033[0m".format(code, text)
