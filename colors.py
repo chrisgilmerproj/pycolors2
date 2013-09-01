@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from os import environ
-from subprocess import Popen, PIPE
+import os
+import subprocess
 
 __all__ = [
 	# Methods
@@ -17,7 +17,7 @@ __all__ = [
 def __has_colors():
 	""" Checks if the shell supports colors """
 
-	p = Popen('tput colors', stdout=PIPE, stderr=PIPE, shell=True)
+	p = subprocess.Popen('tput colors', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
 	try:
 		num_colors = int(p.stdout.read())
@@ -25,15 +25,15 @@ def __has_colors():
 		num_colors = 1
 	
 	if num_colors > 1:
-		environ['HASCOLORS'] = '1'
+		os.environ['HASCOLORS'] = '1'
 
 def enable_colors():
 	""" Method to enable colors """
-	del environ['DISABLE_COLORS']
+	del os.environ['DISABLE_COLORS']
 
 def disable_colors():
 	""" Method to disable colors """
-	environ['DISABLE_COLORS'] = '1'
+	os.environ['DISABLE_COLORS'] = '1'
 
 __has_colors()
 
@@ -60,7 +60,7 @@ def _wrap_color(code):
 			c = "%s" % str(int(c)+10)
 		else:
 			c = "0;%s" % c
-		if 'HASCOLORS' in environ and 'DISABLE_COLORS' not in environ:
+		if 'HASCOLORS' in os.environ and 'DISABLE_COLORS' not in os.environ:
 			return "\033[%sm%s\033[0m" % (c, text) 
 		else:
 			return text
