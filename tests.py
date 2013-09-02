@@ -94,7 +94,7 @@ class TestColors(unittest.TestCase):
         with self.assertRaises(Exception) as cm:
             self.colors._wrap_color('38', 'This should fail')
         e = cm.exception
-        self.assertEqual(e.message, 'Color code must be 30 - 37')
+        self.assertEqual(str(e), 'Color code must be 30 - 37')
 
 
 class TestColorsUnavailable(unittest.TestCase):
