@@ -3,7 +3,7 @@
 default:
 	python setup.py check build
 
-.PHONY: register dist upload clean
+.PHONY: register dist inspect upload clean docs
 
 register:
 	if [ ! -f ~/.pypirc ]; then \
@@ -36,4 +36,9 @@ clean:
 	rm -rf build/
 	rm -rf dist/
 	rm -rf *.egg/
+	rm -rf __pycache__/
 	rm -f MANIFEST
+	rm -rf docs/_*/
+
+docs:
+	cd docs && make html
