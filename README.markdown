@@ -9,4 +9,4 @@ Maintainer: Chris Gilmer
 
 [![Build Status](https://travis-ci.org/chrisgilmerproj/pycolors2.png)](https://travis-ci.org/chrisgilmerproj/pycolors2)
 
-[PyColors2 ReadTheDocs](https://readthedocs.org/projects/pycolors2/)
+[PyColors2 ReadTheDocs](http://pycolors2.readthedocs.org/en/latest/)
