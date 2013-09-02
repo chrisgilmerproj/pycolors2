@@ -10,6 +10,11 @@ import mock
 # This app
 import colors
 
+# One test doesn't work right in python 2.6
+py26 = False
+if sys.version_info < (2, 7):
+    py26 = True
+
 
 class TestColors(unittest.TestCase):
 
@@ -91,10 +96,13 @@ class TestColors(unittest.TestCase):
         self.assertEqual(output, expected)
 
     def test_wrap_colors_bad_code(self):
-        with self.assertRaises(Exception) as cm:
-            self.colors._wrap_color('38', 'This should fail')
-        e = cm.exception
-        self.assertEqual(str(e), 'Color code must be 30 - 37')
+        if py26:
+            self.assertRaises(Exception, self.colors._wrap_color, '38', 'This should fail')
+        else:
+            with self.assertRaises(Exception) as cm:
+                self.colors._wrap_color('38', 'This should fail')
+            e = cm.exception
+            self.assertEqual(str(e), 'Color code must be 30 - 37')
 
 
 class TestColorsUnavailable(unittest.TestCase):
