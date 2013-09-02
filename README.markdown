@@ -8,6 +8,7 @@ original pycolors tool in pypi.
 Maintainer: Chris Gilmer
 
 [![Build Status](https://travis-ci.org/chrisgilmerproj/pycolors2.png)](https://travis-ci.org/chrisgilmerproj/pycolors2)
+
 [PyColors2 ReadTheDocs](https://readthedocs.org/projects/pycolors2/)
 
 ## Methods
