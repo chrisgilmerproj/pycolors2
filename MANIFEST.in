@@ -3,3 +3,7 @@ include MANIFEST
 include MANIFEST.in
 include README.markdown
 include *.py
+include requirements*.txt
+include docs/*.py
+include docs/*.rst
+include docs/Makefile
