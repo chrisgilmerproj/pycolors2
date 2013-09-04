@@ -10,6 +10,10 @@ class ANSIColors(object):
     TRAIL = 'm'
     PREFIX = ''
 
+    def __init__(self):
+        self.COLORS = self.get_dict()
+        self.ORDER = self.get_order()
+
     @classmethod
     def get_color(cls, color):
         code = cls.COLORS.get(color, None)
@@ -25,11 +29,17 @@ class ANSIColors(object):
     def get_dict(cls):
         colors = {}
         for key in cls.COLORS:
-            colors['{0}{1}'.format(cls.PREFIX, key)] = cls.get_color(key)
+            color = cls.get_color(key)
+            colors['{0}{1}'.format(cls.PREFIX, key)] = color
         return colors
 
+    @classmethod
+    def get_order(cls):
+        code_list = sorted([(code, key) for key, code in cls.COLORS.iteritems()])
+        return [key for code, key in code_list]
 
-class ForegroundColors(ANSIColors):
+
+class FgColors(ANSIColors):
     COLORS = {
         'black': '30',
         'red': '31',
@@ -43,7 +53,7 @@ class ForegroundColors(ANSIColors):
     }
 
 
-class BackgroundColors(ANSIColors):
+class BgColors(ANSIColors):
     PREFIX = 'bg_'
     COLORS = {
         'black': '40',
@@ -69,6 +79,12 @@ class StyleColors(ANSIColors):
 
 class Colors(object):
 
+    fg = FgColors()
+    bg = BgColors()
+    st = StyleColors()
+    formats = ['bold', 'underline']
+    styles = ['dim', 'normal', 'bright']
+
     def __init__(self):
         """ Checks if the shell supports colors """
 
@@ -90,9 +106,7 @@ class Colors(object):
 
     def enumerate_colors(self):
         colors = {}
-        cls_list = [ForegroundColors,
-                    BackgroundColors,
-                    StyleColors]
+        cls_list = [self.fg, self.bg, self.st]
         for cls in cls_list:
             colors.update(cls.get_dict())
         return colors
@@ -107,11 +121,16 @@ class Colors(object):
 
     def _wrap_color(self, code, text, format=None, style=None):
         """ Colors text with code and given format """
-        color = self.COLORS.get(code, None)
+        color = None
+        if code[:3] == self.bg.PREFIX:
+            color = self.bg.COLORS.get(code, None)
+        if not color:
+            color = self.fg.COLORS.get(code, None)
+
         if not color:
             raise Exception('Color code not found')
 
-        if format and format not in ['bold', 'underline']:
+        if format and format not in self.formats:
             raise Exception('Color format not found')
 
         fmt = "0;"
@@ -128,8 +147,8 @@ class Colors(object):
             # Set brightness
             st = ''
             if style:
-                st = self.COLORS.get(style, '')
-            return "{0}{1}{2}{3}".format(st, color, text, self.COLORS['reset_all'])
+                st = self.st.COLORS.get(style, '')
+            return "{0}{1}{2}{3}".format(st, color, text, self.st.COLORS['reset_all'])
         else:
             return text
 

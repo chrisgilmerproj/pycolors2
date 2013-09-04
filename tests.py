@@ -91,10 +91,10 @@ class TestColors(unittest.TestCase):
 
     def test_wrap_colors_bad_code(self):
         if py26:
-            self.assertRaises(Exception, self.colors._wrap_color, '38', 'This should fail')
+            self.assertRaises(Exception, self.colors._wrap_color, 'bad', 'This should fail')
         else:
             with self.assertRaises(Exception) as cm:
-                self.colors._wrap_color('38', 'This should fail')
+                self.colors._wrap_color('bad', 'This should fail')
             e = cm.exception
             self.assertEqual(str(e), 'Color code not found')
 
