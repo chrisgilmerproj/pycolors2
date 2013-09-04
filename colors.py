@@ -23,7 +23,10 @@ class ANSIColors(object):
 
     @classmethod
     def get_dict(cls):
-        return {'{0}{1}'.format(cls.PREFIX, key): cls.get_color(key) for key in cls.COLORS}
+        colors = {}
+        for key in cls.COLORS:
+            colors['{0}{1}'.format(cls.PREFIX, key)] = cls.get_color(key)
+        return colors
 
 
 class ForegroundColors(ANSIColors):
