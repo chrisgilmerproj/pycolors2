@@ -61,9 +61,8 @@ class TestColors(unittest.TestCase):
         self.assertEqual(output, expected)
 
     def test_colors_format_background(self):
-        output = self.colors.red('This will be BACKGROUND red text',
-                            format='background')
-        expected = '\x1b[41mThis will be BACKGROUND red text\x1b[0m'
+        output = self.colors.bg_red('This will be BACKGROUND red text')
+        expected = '\x1b[0;41mThis will be BACKGROUND red text\x1b[0m'
         self.assertEqual(output, expected)
 
     def test_disable_colors(self):
@@ -97,7 +96,16 @@ class TestColors(unittest.TestCase):
             with self.assertRaises(Exception) as cm:
                 self.colors._wrap_color('38', 'This should fail')
             e = cm.exception
-            self.assertEqual(str(e), 'Color code must be 30 - 37 and 39')
+            self.assertEqual(str(e), 'Color code not found')
+
+    def test_wrap_colors_bad_format(self):
+        if py26:
+            self.assertRaises(Exception, self.colors._wrap_color, 'red', 'This should fail', format='bad')
+        else:
+            with self.assertRaises(Exception) as cm:
+                self.colors._wrap_color('red', 'This should fail', format='bad')
+            e = cm.exception
+            self.assertEqual(str(e), 'Color format not found')
 
 
 class TestColorsUnavailable(unittest.TestCase):
