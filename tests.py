@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import os
 import sys
 import unittest
 
@@ -25,14 +24,10 @@ class TestColors(unittest.TestCase):
         self.p.stdout.read.return_value = '8'
         self.subprocess.return_value = self.p
         self.colors = colors.Colors()
-        self.assertTrue(self.colors.PYCOLORS2_HAS_COLORS in os.environ)
+        self.assertTrue(self.colors.colors_enabled)
 
     def tearDown(self):
         self.patcher.stop()
-        if self.colors.PYCOLORS2_HAS_COLORS in os.environ:
-            del os.environ[self.colors.PYCOLORS2_HAS_COLORS]
-        if self.colors.PYCOLORS2_DISABLE_COLORS in os.environ:
-            del os.environ[self.colors.PYCOLORS2_DISABLE_COLORS]
 
     def test_color_text(self):
         output = self.colors.red('This will be red text')
@@ -73,24 +68,24 @@ class TestColors(unittest.TestCase):
 
     def test_disable_colors(self):
         self.colors.enable_colors()
-        self.assertTrue(self.colors.PYCOLORS2_DISABLE_COLORS not in os.environ)
+        self.assertTrue(self.colors.colors_enabled)
         output = self.colors.red('This will be red text')
         expected = '\x1b[0;31mThis will be red text\x1b[0m'
         self.assertEqual(output, expected)
         self.colors.disable_colors()
-        self.assertTrue(self.colors.PYCOLORS2_DISABLE_COLORS in os.environ)
+        self.assertFalse(self.colors.colors_enabled)
         output = self.colors.red('This will be red text')
         expected = 'This will be red text'
         self.assertEqual(output, expected)
 
     def test_enable_colors(self):
         self.colors.disable_colors()
-        self.assertTrue(self.colors.PYCOLORS2_DISABLE_COLORS in os.environ)
+        self.assertFalse(self.colors.colors_enabled)
         output = self.colors.red('This will be red text')
         expected = 'This will be red text'
         self.assertEqual(output, expected)
         self.colors.enable_colors()
-        self.assertTrue(self.colors.PYCOLORS2_DISABLE_COLORS not in os.environ)
+        self.assertTrue(self.colors.colors_enabled)
         output = self.colors.red('This will be red text')
         expected = '\x1b[0;31mThis will be red text\x1b[0m'
         self.assertEqual(output, expected)
@@ -113,18 +108,13 @@ class TestColorsUnavailable(unittest.TestCase):
 
     def tearDown(self):
         self.patcher.stop()
-        c = colors.Colors()
-        if c.PYCOLORS2_HAS_COLORS in os.environ:
-            del os.environ[c.PYCOLORS2_HAS_COLORS]
-        if c.PYCOLORS2_DISABLE_COLORS in os.environ:
-            del os.environ[c.PYCOLORS2_DISABLE_COLORS]
 
     def test_colors_not_available(self):
         self.p = mock.Mock()
         self.p.stdout.read.return_value = '1'
         self.subprocess.return_value = self.p
         c = colors.Colors()
-        self.assertTrue(c.PYCOLORS2_HAS_COLORS not in os.environ)
+        self.assertFalse(c.has_colors)
         output = c.red('This will be red text')
         expected = 'This will be red text'
         self.assertEqual(output, expected)
@@ -134,7 +124,7 @@ class TestColorsUnavailable(unittest.TestCase):
         self.p.stdout.read.side_effect = OSError
         self.subprocess.return_value = self.p
         c = colors.Colors()
-        self.assertTrue(c.PYCOLORS2_HAS_COLORS not in os.environ)
+        self.assertFalse(c.has_colors)
         output = c.red('This will be red text')
         expected = 'This will be red text'
         self.assertEqual(output, expected)
@@ -144,7 +134,7 @@ class TestColorsUnavailable(unittest.TestCase):
         self.p.stdout.read.side_effect = ValueError
         self.subprocess.return_value = self.p
         c = colors.Colors()
-        self.assertTrue(c.PYCOLORS2_HAS_COLORS not in os.environ)
+        self.assertFalse(c.has_colors)
         output = c.red('This will be red text')
         expected = 'This will be red text'
         self.assertEqual(output, expected)

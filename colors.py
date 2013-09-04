@@ -1,14 +1,11 @@
 #!/usr/bin/python
 
-import os
 import subprocess
 
 __all__ = ['Colors']
 
 
 class Colors(object):
-    PYCOLORS2_HAS_COLORS = 'PYCOLORS2_HAS_COLORS'
-    PYCOLORS2_DISABLE_COLORS = 'PYCOLORS2_DISABLE_COLORS'
 
     COLORS = {
         'reset_all': '\033[0m',
@@ -48,19 +45,19 @@ class Colors(object):
         except (OSError, ValueError):
             num_colors = 1
 
+        self.has_colors = False
         if num_colors > 1:
-            os.environ[self.PYCOLORS2_HAS_COLORS] = '1'
+            self.has_colors = True
 
         self.enable_colors()
 
     def enable_colors(self):
         """ Method to enable colors """
-        if self.PYCOLORS2_DISABLE_COLORS in os.environ:
-            del os.environ[self.PYCOLORS2_DISABLE_COLORS]
+        self.colors_enabled = True
 
     def disable_colors(self):
         """ Method to disable colors """
-        os.environ[self.PYCOLORS2_DISABLE_COLORS] = '1'
+        self.colors_enabled = False
 
     def _wrap_color(self, code, text, format=None, style=None):
         """ Colors text with code and given format """
@@ -75,8 +72,7 @@ class Colors(object):
             code = str(int(code) + 10)
         else:
             code = "0;{0}".format(code)
-        if self.PYCOLORS2_HAS_COLORS in os.environ and \
-           self.PYCOLORS2_DISABLE_COLORS not in os.environ:
+        if self.has_colors and self.colors_enabled:
             st = ''
             if style:
                 st = self.COLORS.get(style, '')
