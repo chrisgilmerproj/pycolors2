@@ -34,7 +34,7 @@ Similarly the dictionary can be used::
 
     import colors
     c = colors.Colors()
-    print('{red}This will be red text {green}and this will be green text.{normal}'.format(**c.COLORS))
+    print('{red}This will be red text {green}and this will be green text.{reset_all}'.format(**c.COLORS))
 
 Formatting
 ----------

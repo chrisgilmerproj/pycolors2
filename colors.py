@@ -11,7 +11,11 @@ class Colors(object):
     PYCOLORS2_DISABLE_COLORS = 'PYCOLORS2_DISABLE_COLORS'
 
     COLORS = {
-        'normal': '\033[0m',
+        'reset_all': '\033[0m',
+        'bright': '\033[1m',
+        'dim': '\033[2m',
+        'normal': '\033[22m',
+
         'black': '\033[30m',
         'red': '\033[31m',
         'green': '\033[32m',
@@ -20,6 +24,17 @@ class Colors(object):
         'magenta': '\033[35m',
         'cyan': '\033[36m',
         'white': '\033[37m',
+        'reset': '\033[39m',
+
+        'black_background': '\033[40m',
+        'red_background': '\033[41m',
+        'green_background': '\033[42m',
+        'yellow_background': '\033[33m',
+        'blue_background': '\033[33m',
+        'magenta_background': '\033[45m',
+        'cyan_background': '\033[46m',
+        'white_background': '\033[47m',
+        'reset_background': '\033[49m',
     }
 
     def __init__(self):
@@ -47,10 +62,10 @@ class Colors(object):
         """ Method to disable colors """
         os.environ[self.PYCOLORS2_DISABLE_COLORS] = '1'
 
-    def _wrap_color(self, code, text, format=None):
+    def _wrap_color(self, code, text, format=None, style=None):
         """ Colors text with code and given format """
-        if int(code) not in range(30, 38):
-            raise Exception('Color code must be 30 - 37')
+        if int(code) not in range(30, 38) + [39]:
+            raise Exception('Color code must be 30 - 37 and 39')
 
         if format == 'bold':
             code = "1;{0}".format(code)
@@ -62,7 +77,10 @@ class Colors(object):
             code = "0;{0}".format(code)
         if self.PYCOLORS2_HAS_COLORS in os.environ and \
            self.PYCOLORS2_DISABLE_COLORS not in os.environ:
-            return "\033[{0}m{1}\033[0m".format(code, text)
+            st = ''
+            if style:
+                st = self.COLORS.get(style, '')
+            return "{0}\033[{1}m{2}\033[0m".format(st, code, text)
         else:
             return text
 
@@ -89,3 +107,6 @@ class Colors(object):
 
     def white(self, text, format=None):
         return self._wrap_color('37', text, format=format)
+
+    def reset(self, text, format=None):
+        return self._wrap_color('39', text, format=format)

@@ -48,7 +48,7 @@ class TestColors(unittest.TestCase):
 
     def test_colors_from_dictionary(self):
         output = '{red}This will be red text {green}' \
-                 'and this will be green text.{normal}'.format(**self.colors.COLORS)
+                 'and this will be green text.{reset_all}'.format(**self.colors.COLORS)
         expected = '\x1b[31mThis will be red text \x1b[32m' \
                    'and this will be green text.\x1b[0m'
         self.assertEqual(output, expected)
@@ -102,7 +102,7 @@ class TestColors(unittest.TestCase):
             with self.assertRaises(Exception) as cm:
                 self.colors._wrap_color('38', 'This should fail')
             e = cm.exception
-            self.assertEqual(str(e), 'Color code must be 30 - 37')
+            self.assertEqual(str(e), 'Color code must be 30 - 37 and 39')
 
 
 class TestColorsUnavailable(unittest.TestCase):
