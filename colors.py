@@ -35,7 +35,7 @@ class ANSIColors(object):
 
     @classmethod
     def get_order(cls):
-        code_list = sorted([(code, key) for key, code in cls.COLORS.iteritems()])
+        code_list = sorted([(code, key) for key, code in cls.COLORS.items()])
         return [key for code, key in code_list]
 
 
