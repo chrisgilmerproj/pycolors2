@@ -64,7 +64,7 @@ class Colors(object):
 
     def _wrap_color(self, code, text, format=None, style=None):
         """ Colors text with code and given format """
-        if int(code) not in range(30, 38) + [39]:
+        if int(code) not in list(range(30, 38)) + [39]:
             raise Exception('Color code must be 30 - 37 and 39')
 
         if format == 'bold':
